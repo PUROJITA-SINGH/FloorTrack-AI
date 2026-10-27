@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  color-scheme: light;
+
+  --surface-0: #F4F6F7;
+  --surface-1: #FFFFFF;
+  --surface-2: #EEF1F3;
+  --border: #D4DADE;
+
+  --text-1: #1A2228;
+  --text-2: #4A5560;
+  --text-3: #6B7780;
+
+  --accent: #0D7A6F;
+  --accent-hover: #0A645B;
+  --accent-subtle: #E6F3F1;
+
+  --status-usable: #1B7A4A;
+  --status-warn: #B86E00;
+  --status-conflict: #B42318;
+
+  --band-low: #6B7780;
+  --band-med: #B86E00;
+  --band-high: #0D7A6F;
+
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --font-size-page-title: 24px;
+  --font-size-section-heading: 18px;
+  --font-size-body: 15px;
+  --font-size-label: 13px;
+  --font-size-asset-id: 14px;
+  --font-size-badge: 12px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}

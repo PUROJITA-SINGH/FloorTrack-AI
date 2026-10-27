@@ -1,0 +1,97 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-1);
+  background: var(--surface-0);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.asset-detail-drawer {
+  animation: asset-drawer-slide-in 200ms ease-out both;
+}
+
+.asset-marker-highlight {
+  animation: asset-marker-pulse 500ms ease-out;
+}
+
+.asset-detail-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: asset-detail-spin 700ms linear infinite;
+}
+
+@keyframes asset-drawer-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes asset-marker-pulse {
+  0% {
+    opacity: 0.55;
+    filter: drop-shadow(0 0 4px var(--accent));
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes asset-detail-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asset-detail-drawer {
+    animation: none;
+  }
+
+  .asset-marker-highlight,
+  .asset-detail-spinner {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

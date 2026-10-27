@@ -1,0 +1,223 @@
+{
+  "normal_movement": {
+    "description": "P-001 moves from Ward A to Ward B with agreeing camera and BLE observations.",
+    "camera": {
+      "enabled": true,
+      "camera_name": "CAM-2",
+      "asset_code": "P-001",
+      "zone_name": "Ward A",
+      "events": [
+        {"zone_name": "Ward A", "timestamp": "now", "confidence": 0.9},
+        {"zone_name": "Ward B", "timestamp": "now", "confidence": 0.92}
+      ]
+    },
+    "ble": {
+      "enabled": true,
+      "asset_code": "P-001",
+      "events": [
+        {
+          "timestamp": "now",
+          "readings": [
+            {"gateway_name": "GW-1", "rssi": -45},
+            {"gateway_name": "GW-2", "rssi": -75}
+          ]
+        },
+        {
+          "timestamp": "now",
+          "readings": [
+            {"gateway_name": "GW-1", "rssi": -50},
+            {"gateway_name": "GW-2", "rssi": -50}
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "decision_status": "confirmed",
+      "zone_name": "Ward B",
+      "camera_and_ble_agree": true
+    }
+  },
+  "agreement": {
+    "description": "Camera and multi-gateway BLE agree that P-002 is in Ward A.",
+    "camera": {
+      "enabled": true,
+      "camera_name": "CAM-1",
+      "asset_code": "P-002",
+      "zone_name": "Ward A",
+      "confidence": 0.95
+    },
+    "ble": {
+      "enabled": true,
+      "asset_code": "P-002",
+      "events": [
+        {
+          "timestamp": "now",
+          "readings": [
+            {"gateway_name": "GW-1", "rssi": -45},
+            {"gateway_name": "GW-2", "rssi": -75}
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "decision_status": "confirmed",
+      "zone_name": "Ward A",
+      "camera_and_ble_agree": true
+    }
+  },
+  "camera_occlusion": {
+    "description": "Camera observes no positive detection; multi-gateway BLE provides the zone evidence.",
+    "camera": {"enabled": false},
+    "ble": {
+      "enabled": true,
+      "asset_code": "P-003",
+      "events": [
+        {
+          "timestamp": "now",
+          "readings": [
+            {"gateway_name": "GW-1", "rssi": -50},
+            {"gateway_name": "GW-2", "rssi": -50}
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "decision_status": "confirmed",
+      "zone_name": "Ward B",
+      "camera_zone_id": null,
+      "ble_zone_present": true
+    }
+  },
+  "ble_signal_bleeding": {
+    "description": "Camera reports Ward A while BLE signal bleeding estimates Ward B; this must require review.",
+    "camera": {
+      "enabled": true,
+      "camera_name": "CAM-1",
+      "asset_code": "P-004",
+      "zone_name": "Ward A",
+      "confidence": 0.95
+    },
+    "ble": {
+      "enabled": true,
+      "asset_code": "P-004",
+      "events": [
+        {
+          "timestamp": "now",
+          "readings": [
+            {"gateway_name": "GW-1", "rssi": -50},
+            {"gateway_name": "GW-2", "rssi": -50}
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "decision_status": "sensor_disagreement",
+      "review_state": "needs_review",
+      "camera_zone_name": "Ward A",
+      "ble_zone_name": "Ward B",
+      "review_alert_required": true
+    }
+  },
+  "ble_tag_failure": {
+    "description": "BLE has no positive readings; camera-only evidence is kept distinct from tag availability.",
+    "camera": {
+      "enabled": true,
+      "camera_name": "CAM-1",
+      "asset_code": "P-005",
+      "zone_name": "Ward A",
+      "confidence": 0.9
+    },
+    "ble": {"enabled": false},
+    "expected": {
+      "decision_status": "confirmed",
+      "zone_name": "Ward A",
+      "gateway_count": 0,
+      "availability_unchanged": true
+    }
+  },
+  "unknown_asset": {
+    "description": "An unregistered camera identifier is recorded as unknown and is not attached to an asset.",
+    "camera": {
+      "enabled": true,
+      "camera_name": "CAM-1",
+      "asset_identifier": "UNREGISTERED-DEMO-TAG",
+      "zone_name": "Ward A",
+      "confidence": 0.8
+    },
+    "ble": {"enabled": false},
+    "expected": {
+      "unknown_asset": true,
+      "asset_id": null,
+      "asset_state_created": false
+    }
+  },
+  "stale_gateway": {
+    "description": "A delayed multi-gateway BLE batch is accepted as old evidence and receives a stale confidence result.",
+    "camera": {"enabled": false},
+    "ble": {
+      "enabled": true,
+      "asset_code": "P-006",
+      "events": [
+        {
+          "timestamp": "now_minus_20m",
+          "readings": [
+            {"gateway_name": "GW-1", "rssi": -45},
+            {"gateway_name": "GW-2", "rssi": -75}
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "decision_status": "stale",
+      "confidence_band": "stale",
+      "gateway_count": 2
+    }
+  },
+  "shortage_surge": {
+    "description": "A public demand event raises Ward A demand to a reproducible surge target and the API reports its usable supply.",
+    "demand": {
+      "zone_name": "Ward A",
+      "asset_code": "P-007",
+      "target_demand": 100
+    },
+    "expected": {
+      "demand_at_least": 100,
+      "band": "critical",
+      "demand_and_usable_supply_reported": true
+    }
+  },
+  "excess_inventory": {
+    "description": "Read the surplus recommendation endpoint without changing any asset availability.",
+    "expected": {
+      "availability_unchanged": true,
+      "recommendations_are_drafts": true
+    }
+  },
+  "camera_silent": {
+    "description": "No sensor events are sent; fusion may update coverage but must not change P-008 asset state.",
+    "camera": {"enabled": false},
+    "ble": {"enabled": false},
+    "asset_code": "P-008",
+    "expected": {
+      "status": "camera_silent",
+      "state_changed": false,
+      "location_confidence_and_availability_unchanged": true
+    }
+  },
+  "status_never_confirmed": {
+    "description": "Camera locates P-009, but no status write is made; availability remains status_unknown and unusable.",
+    "camera": {
+      "enabled": true,
+      "camera_name": "CAM-1",
+      "asset_code": "P-009",
+      "zone_name": "Ward A",
+      "confidence": 0.88
+    },
+    "asset_code": "P-009",
+    "expected": {
+      "operational_status": "status_unknown",
+      "usable_count_excludes_asset": true,
+      "status_write_made": false
+    }
+  }
+}
