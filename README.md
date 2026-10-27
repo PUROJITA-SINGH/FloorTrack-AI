@@ -29,20 +29,20 @@ FloorTrack AI solves this not through surveillance or theft attribution, but thr
 ![Unconfirmed asset](docs/screenshots/02-asset-unconfirmed.jpeg)
 
 ### Sensor disagreement creates a named review state
-![Sensor disagreement](docs/screenshots/03-sensor-disagreement.jng)
+![Sensor disagreement](docs/screenshots/03-sensor-disagreement.jpg)
 
 ### Availability confirmed by a named user
-![Confirm availability](docs/screenshots/04-confirm-availability.jng)
+![Confirm availability](docs/screenshots/04-confirm-availability.jpg)
 
 ### PAR inventory and neutral alerts
-![Inventory](docs/screenshots/05-inventory-par.jng)
+![Inventory](docs/screenshots/05-inventory-par.jpg)
 
 ### Shortage forecast
-![Forecast](docs/screenshots/06-forecast.jng)
+![Forecast](docs/screenshots/06-forecast.jpg)
 
 ### All scenarios and tests pass
-![Scenarios](docs/screenshots/08-scenarios-pass.jng)
-![Tests](docs/screenshots/09-tests-pass.jng)
+![Scenarios](docs/screenshots/08-scenarios-pass.jpg)
+![Tests](docs/screenshots/09-tests-pass.jpg)
 
 ## 2. Architecture & Design Principles
 
