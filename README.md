@@ -20,6 +20,30 @@ FloorTrack AI solves this not through surveillance or theft attribution, but thr
 
 ---
 
+## Screenshots
+
+### Floor map with confidence and freshness
+![Map overview](docs/screenshots/01-map-overview.png)
+
+### Location and availability are separate facts
+![Unconfirmed asset](docs/screenshots/02-asset-unconfirmed.jpeg)
+
+### Sensor disagreement creates a named review state
+![Sensor disagreement](docs/screenshots/03-sensor-disagreement.png)
+
+### Availability confirmed by a named user
+![Confirm availability](docs/screenshots/04-confirm-availability.png)
+
+### PAR inventory and neutral alerts
+![Inventory](docs/screenshots/05-inventory-par.png)
+
+### Shortage forecast
+![Forecast](docs/screenshots/06-forecast.png)
+
+### All scenarios and tests pass
+![Scenarios](docs/screenshots/08-scenarios-pass.png)
+![Tests](docs/screenshots/09-tests-pass.png)
+
 ## 2. Architecture & Design Principles
 
 ```
